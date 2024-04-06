@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # script to report information about server domains
-#!/usr/bin/env bash
-# Script to report information about server domains
+# shellcheck disable=SC2086
 
 # Function to check domain and subdomain records
 check_domain() {
