@@ -1,30 +1,46 @@
 #!/usr/bin/env bash
 # script to report information about server domains
+#!/usr/bin/env bash
+# Script to report information about server domains
 
+# Function to check domain and subdomain records
 check_domain() {
-	# awk will use record seperator of space
-	# space sperated list of sub domains
-	SUBDOMAINS='www lb-01 web-01 web-02'
+# Define the list of subdomains
+local subdomains=('www' 'lb-01' 'web-01' 'web-02')
 
-	if [ -z "$1" ]; then
-		exit
-	fi
-	# no sub domain specified, do all
-	if [ -z "$2" ]; then
-		echo "$SUBDOMAINS" | awk -v domain="$1"\
-		'BEGIN { RS=" " }
-		{split($0,ARR," ");
-		cmd = "dig " ARR[1]"."domain " | grep -A1 \"ANSWER SECTION:\" | tail -n1";
-		system(cmd)
-		close(cmd)}' | awk\
-		'{
-		split($0, DOMS, ".");
-		print "The subdomain " DOMS[1] " is a " $4 " record and points to " $5}'
-	else
-		dig "$2.$1" | grep -A1 "ANSWER SECTION:" | tail -n1 | awk\
-		'{
-		split($0, DOMS, ".");
-		print "The subdomain " DOMS[1] " is a " $4 " record and points to " $5}'
-	fi
+# Check if the domain argument is provided
+if [ -z "$1" ]; then
+echo "Domain name is required."
+exit 1
+fi
+
+# Function to fetch and display DNS record information
+fetch_dns_record() {
+local subdomain=$1
+local domain=$2
+# Use dig to fetch the DNS record for the subdomain
+local record=$(dig +short "$subdomain.$domain")
+
+# Check if the record is empty
+if [ -z "$record" ]; then
+echo "The subdomain $subdomain does not have a DNS record."
+else
+# Use dig to fetch the record type
+local record_type=$(dig +noall +answer "$subdomain.$domain" | awk '{print $4}')
+echo "The subdomain $subdomain is a $record_type record and points to $record"
+fi
 }
+
+# If no subdomain is specified, check all predefined subdomains
+if [ -z "$2" ]; then
+for subdomain in "${subdomains[@]}"; do
+fetch_dns_record "$subdomain" "$1"
+done
+else
+# Check the specified subdomain
+fetch_dns_record "$2" "$1"
+fi
+}
+
+# Call the function with the provided arguments
 check_domain "$1" "$2"
