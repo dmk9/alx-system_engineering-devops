@@ -8,13 +8,17 @@
 #   ufw-before-forward
 #
 
-# Redirect requests from port 8080/tcp to 80/tcp*nat
+# Redirect requests from port 8080/tcp to 80/tcp
+*nat
 :PREROUTING ACCEPT [0:0]
 -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
-COMMIT                                          
+COMMIT
+
 # Don't delete these required lines, otherwise there will be errors
-*filter                                         :ufw-before-input - [0:0]
-:ufw-before-output - [0:0]                      :ufw-before-forward - [0:0]
+*filter
+:ufw-before-input - [0:0]
+:ufw-before-output - [0:0]
+:ufw-before-forward - [0:0]
 :ufw-not-local - [0:0]
 # End required lines
 
@@ -24,9 +28,9 @@ COMMIT
 -A ufw-before-output -o lo -j ACCEPT
 
 # quickly process packets for which we already have a connection
--A ufw-before-input -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
--A ufw-before-output -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
--A ufw-before-forward -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A ufw-before-input -m conntrack --ctstate RELATED, ESTABLISHED -j ACCEPT
+-A ufw-before-output -m conntrack --ctstate RELATED, ESTABLISHED -j ACCEPT
+-A ufw-before-forward -m conntrack --ctstate RELATED, ESTABLISHED -j ACCEPT
 
 # drop INVALID packets (logs these in loglevel medium and higher)
 -A ufw-before-input -m conntrack --ctstate INVALID -j ufw-logging-deny
@@ -75,4 +79,3 @@ COMMIT
 
 # don't delete the 'COMMIT' line or these rules won't be processed
 COMMIT
-~/.../alx-system_engineering-devops/0x13-firewall $
