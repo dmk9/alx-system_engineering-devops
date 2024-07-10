@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # 404 Not Found Page
 
-sudo apt-get update
-sudo apt-get install -y nginx
+apt-get update
+apt-get install -y nginx
 
-sudo touch /var/www/html/index.html /var/www/html/404.html
+touch /var/www/html/index.html /var/www/html/404.html
 echo "Hello World!" > /var/www/html/index.html
-echo "Ceci n'est pas une page" > /var/www/html/404.html
+suecho "Ceci n'est pas une page" > /var/www/html/404.html
 
 printf %s "server {
     listen 80;
@@ -26,4 +26,4 @@ printf %s "server {
     }
 }" > /etc/nginx/sites-available/default
 
-sudo service nginx restart
+service nginx restart
