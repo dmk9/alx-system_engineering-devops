@@ -11,8 +11,8 @@ frontend hbnb-lb_front
         default_backend hbnb-lb_back
 backend hbnb-lb_back
         balance roundrobin
-        server 1723-web-01 100.26.181.86:80 check
-        server 1723-web-02 34.238.192.13:80 check
+        server 140674-web-01 54.172.58.212:80 check
+        server 140674-web-02 18.207.2.170:80 check
 " >> /etc/haproxy/haproxy.cfg
 
 echo "ENABLED=1" >> /etc/default/haproxy
