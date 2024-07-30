@@ -5,9 +5,9 @@ exports all information on tasks for selected
 employee in the CSV format.
 '''
 
+import csv
 import requests
 import sys
-import csv
 
 API_URL = 'https://jsonplaceholder.typicode.com'
 
