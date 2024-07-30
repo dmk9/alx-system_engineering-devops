@@ -5,10 +5,8 @@ exports all information on tasks for selected
 employee in the JSON format.
 '''
 import json
-
-import sys
-
 import requests
+import sys
 
 API_URL = 'https://jsonplaceholder.typicode.com'
 
