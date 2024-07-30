@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 '''
 A Python script that, using this REST API, for a given employee ID,
-export all information on tasks for all 
+export all information on tasks for all
 employees in the JSON format.
 '''
-import requests
 import json
+
+import requests
 
 API_URL = 'https://jsonplaceholder.typicode.com'
 

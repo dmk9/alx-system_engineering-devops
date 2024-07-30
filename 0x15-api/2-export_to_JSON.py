@@ -4,9 +4,11 @@ A Python script that, using this REST API,
 exports all information on tasks for selected
 employee in the JSON format.
 '''
-import requests
-import sys
 import json
+
+import sys
+
+import requests
 
 API_URL = 'https://jsonplaceholder.typicode.com'
 
