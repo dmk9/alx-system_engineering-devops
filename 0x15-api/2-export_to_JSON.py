@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+'''
+A Python script that, using this REST API, for a given employee ID,
+export all information on tasks for selected 
+employee in the JSON format.
+'''
 import requests
 import sys
 import json
