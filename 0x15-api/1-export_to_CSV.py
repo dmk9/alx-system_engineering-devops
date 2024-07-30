@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''
 A Python script that, using this REST API, for a given employee ID,
-exports all information on tasks for selected 
+exports all information on tasks for selected
 employee in the CSV format.
 '''
 
