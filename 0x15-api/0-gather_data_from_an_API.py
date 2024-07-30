@@ -16,18 +16,23 @@ if __name__ == '__main__':
         try:
             # Get the employee ID from command line arguments
             employee_id = int(sys.argv[1])
-            
+
             # Get the user's information from the API
             user_res = requests.get(f'{API_URL}/users/{employee_id}').json()
             todos_res = requests.get(f'{API_URL}/todos').json()
             user_name = user_res.get('name')
 
             # Filter todos for the given user
-            todos = [todo for todo in todos_res if todo.get('userId') == employee_id]
+            todos = [
+                todo for todo in todos_res
+                if todo.get('userId') == employee_id
+            ]
             todos_done = [todo for todo in todos if todo.get('completed')]
 
             # Print the user's tasks
-            print(f"Employee {user_name} is done with tasks({len(todos_done)}/{len(todos)}):")
+            print(
+                f"Employee {user_name} is done with tasks"
+                f"({len(todos_done)}/{len(todos)}): ")
             for todo in todos_done:
                 print(f"\t {todo.get('title')}")
         except ValueError:
