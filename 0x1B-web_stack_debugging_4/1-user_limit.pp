@@ -1,3 +1,4 @@
+# Script that changes OS configuration so that it is possible to login with the holberton user and open a file without any error message.
 exec {'change-os-config-holberton-user':
   command => "bash -c \"sed -iE 's/^holberton hard nofile \
 5/holberton hard nofile 88888/' /etc/security/limits.conf; \
